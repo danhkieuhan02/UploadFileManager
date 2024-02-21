@@ -1,8 +1,37 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+	<link href="~/lib/filemanager/css/filemanager.min.css" rel="stylesheet" asp-append-version="true" />
+</head>
+<body>
+	<div class="container">
+		<div class="file-manager-page">
+			@* folder tree *@
+			<div class="fm-toolbox">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+			</div>
+			@* folder tree *@
+			<div class="fm-folder-tree">
+
+			</div>
+
+			@* Dasboard, show all files, folders and tools *@
+			<div class="fm-main-panel">
+
+			</div>
+
+			@* additional information *@
+			<div class="fm-additional-info">
+				
+			</div>
+		</div>
+	</div>
+
+	<script defer src="~/lib/alpinejs/cdn.min.js"></script>
+	<script src="~/lib/filemanager/js/filemanager.js" asp-append-version="true"></script>
+</body>
+</html>
