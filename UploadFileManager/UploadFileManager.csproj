@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\lib\FileManager\icon\" />
+    <Folder Include="wwwroot\upload\cus_test2\" />
+    <Folder Include="wwwroot\upload\cus_test\cus_test11\" />
   </ItemGroup>
 
   <ItemGroup>

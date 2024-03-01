@@ -1,32 +1,39 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Home</title>
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link href="~/lib/filemanager/css/filemanager.min.css" rel="stylesheet" asp-append-version="true" />
 </head>
 <body>
 	<div class="container">
-		<div class="file-manager-page">
+		<div x-data="fm_upload" class="file-manager-page">
 			@* folder tree *@
 			<div class="fm-toolbox">
-
+				Toolbox
 			</div>
 			@* folder tree *@
 			<div class="fm-folder-tree">
-
+				folder tree
+				<ul>
+					<template x-for="(f, idx) in _folderTree">
+						<li :class="f.cssClass">
+							<button class="btn btn-primary" data-expand-char="+" data-collapse-char="-" 
+							x-on:click="toggleFolder(idx)">+</button>
+							<span x-text="f.folderName"></span>
+						</li>
+					</template>
+				</ul>
 			</div>
 
 			@* Dasboard, show all files, folders and tools *@
 			<div class="fm-main-panel">
-
 			</div>
 
-			@* additional information *@
+			@* additional information *@	
 			<div class="fm-additional-info">
-				
 			</div>
 		</div>
 	</div>
