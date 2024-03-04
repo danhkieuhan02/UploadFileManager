@@ -129,18 +129,17 @@
   display: none;
 }
 
-/*
-.folder-level-1:not(.show) ~ .folder-level-2 {
-    display: none!important;
-}
-
-.folder-level-1.show ~ .folder-level-2 {
-    display: block;
-}*/
 .show {
   display: block;
 }
 
 .rotate {
   transform: rotate(90deg);
+}
+
+.fm-folder-tree .btn-toggle {
+  width: 15px;
+  height: 15px;
+  line-height: 7px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

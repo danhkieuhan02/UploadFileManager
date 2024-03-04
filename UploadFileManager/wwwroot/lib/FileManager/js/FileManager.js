@@ -1,13 +1,23 @@
 ﻿document.addEventListener('alpine:init', () => {
     Alpine.data('fm_upload', () => ({
         _setting: {
-        baseUrl: '/filemanager/getalldir',
+            baseUrl: '/filemanager',
             ajaxParam: {
-                cdm: '',
+                cmd: '',
                 value: '',
-                tempValue: '', //bien phu 
-            } 
-           },
+                secondaryValue: '', //bien phu 
+            },
+
+            setParams(cmd, value = '', secondaryValue = '') {
+                this.ajaxParam.cmd = cmd;
+                this.ajaxParam.value = value;
+                this.ajaxParam.secondaryValue = secondaryValue;
+            },
+            //tao url dang filemanager?cmd=GET_ALL_DIR&value, phia truoc dau = la key, phia sau dau = la value
+            getUrl() {
+                return `${this.baseUrl}?${new URLSearchParams(this.ajaxParam)}`;
+            }
+        },
 
         _folderTree: [
             {
@@ -20,11 +30,12 @@
         ],
 
         init() {
-            fetch(this._setting.baseUrl)
+            this._setting.setParams("GET_ALL_DIR");
+            fetch(this._setting.getUrl())
                 .then(res => res.json())
                 .then(json => {
                     console.log(json);
-                    this._folderTree = json.map(path => {
+                    this._folderTree = json.data.map(path => {
                         var tempArr = path.split("\\");
                         return {
                             folderName: tempArr[tempArr.length - 1], // phan tu cuoi
@@ -32,7 +43,7 @@
                             level: tempArr.length,
                             isOpen: false,
                             cssClass: {
-                                [`folder-level-${tempArr.length}`]: true ,
+                                [`folder-level-${tempArr.length}`]: true,
                                 show: false
                             }
                         }
@@ -42,7 +53,6 @@
         },
 
         toggleFolder(idx) {
-            console.log(this.$el);
             //Hien thi nhung folder co level lon hon level hien tai 1 bat
             var currrentLevel = this._folderTree[idx].level;
             if (idx >= this._folderTree.length) {
@@ -51,13 +61,30 @@
 
             this._folderTree[idx].isOpen = !this._folderTree[idx].isOpen;
             var currrentLevel = this._folderTree[idx].level;
-            var isOpen = this._folderTree[idx].isOpen; 
+            this.openFolder(idx, currrentLevel);
+        },
 
-            while(idx +1 < this._folderTree.length && this._folderTree[idx + 1].level > currrentLevel) {
-                if (this._folderTree[idx + 1].level == currrentLevel + 1) {
-                    this._folderTree[idx + 1].cssClass.show = isOpen;
+        openFolder(idx, maxLevel) {
+            var isOpen = this._folderTree[idx].isOpen;
+
+            if (isOpen) {
+                // open folder 
+                while (idx + 1 < this._folderTree.length && this._folderTree[idx + 1].level > maxLevel) {
+                    if (maxLevel + 1 == this._folderTree[idx + 1].level) {
+                        this._folderTree[idx + 1].cssClass.show = true;
+                        if (this._folderTree[idx + 1].isOpen) {
+                            // xu ly folder tree bang de quy 
+                            this.openFolder(idx + 1, this._folderTree[idx + 1].level);
+                        }
+                    }
+                    idx++;
                 }
-                idx++;
+            } else {
+                // xu ly dong thu muc 
+                while (idx + 1 < this._folderTree.length && this._folderTree[idx + 1].level > maxLevel) {
+                    this._folderTree[idx + 1].cssClass.show = false;
+                    idx++;
+                }
             }
         },
     }));

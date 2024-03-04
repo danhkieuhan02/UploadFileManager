@@ -7,6 +7,7 @@
 }
 
 .file-manager-page {
+
     > div {
         border: 1px solid black;
     }
@@ -37,31 +38,29 @@
     }
 }
 
-$folder_level_step: 10px;
-@for $i from 1 through 20 {
-    .folder-level-#{$i} {
-        padding-left: $folder_level_step * ($i - 1);
-        @if $i > 1 {
-            display: none;
+    $folder_level_step: 10px;
+
+    @for $i from 1 through 20 {
+        .folder-level-#{$i} {
+            padding-left: $folder_level_step * ($i - 1);
+
+            @if $i > 1 {
+                display: none;
+            }
         }
     }
-}
 
-//Khong co class show thi khong cho show
-//Co class show thi show 
-/*
-.folder-level-1:not(.show) ~ .folder-level-2 {
-    display: none!important;
-}
+    .show {
+        display: block;
+    }
 
-.folder-level-1.show ~ .folder-level-2 {
-    display: block;
-}*/
+    .rotate {
+        transform: rotate(90deg);
+    }
 
-.show {
-    display: block;
-}
-
-.rotate {
-    transform: rotate(90deg);
-}
+    .fm-folder-tree .btn-toggle {
+        width: 15px;
+        height: 15px;
+        line-height: 7px;
+        font-family: monospace
+    }

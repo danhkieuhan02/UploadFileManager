@@ -8,22 +8,17 @@ namespace UploadFileManager.Controllers
 	public class FileManagerController : Controller
 	{
 		FileManager _fm;
-		public FileManagerController(IWebHostEnvironment env)
+		
+		public IActionResult ExecuteCmd([FromServices] IWebHostEnvironment env)
 		{
-
 			//lay duong dan tu thu muc wwwroot 
 			var wwwroot = env.WebRootPath;
-	
+
 			//lay duong dan tu thu muc upload 
 			var uploadPath = Path.Combine(wwwroot, "upload");
-			_fm = new FileManager(uploadPath);
-		}
+			_fm = new FileManager(uploadPath, Request);
 
-		[Route("getalldir")]
-		
-		public string[] GetAllDirs()
-		{
-			return _fm.GetAllDirs();
+			return Ok(_fm.ExcueteCmd());
 		}
 	}
 }
